@@ -5,14 +5,15 @@ const serverless = require("serverless-http");
 const app = express();
 app.use(bodyParser.json());
 
-app.post("/bfhl", (req, res) => {
+// IMPORTANT: Only "/" because Vercel already maps /bfhl → this file
+app.post("/", (req, res) => {
   const data = req.body.data || [];
 
-  const odd_numbers = data.filter(x => /^\d+$/.test(x) && parseInt(x) % 2 !== 0).map(Number);
-  const even_numbers = data.filter(x => /^\d+$/.test(x) && parseInt(x) % 2 === 0).map(Number);
+  const odd_numbers = data.filter(x => /^\d+$/.test(x) && parseInt(x) % 2 !== 0);
+  const even_numbers = data.filter(x => /^\d+$/.test(x) && parseInt(x) % 2 === 0);
   const alphabets = data.filter(x => /^[a-zA-Z]$/.test(x)).map(x => x.toUpperCase());
   const special_characters = data.filter(x => !/^[a-zA-Z0-9]+$/.test(x));
-  const sum = odd_numbers.concat(even_numbers).reduce((a, b) => a + b, 0);
+  const sum = [...odd_numbers, ...even_numbers].reduce((a, b) => a + parseInt(b), 0);
   const concat_string = alphabets.join("");
 
   res.json({
