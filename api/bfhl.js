@@ -11,9 +11,9 @@ export default function handler(req, res) {
 
     return res.status(200).json({
       is_success: true,
-      user_id: "john_doe_17091999",
-      email: "john@xyz.com",
-      roll_number: "ABCD123",
+      user_id: "abhir_bansal_19022004",
+      email: "abhir.bansal2022@vitstudent.ac.in",
+      roll_number: "22BCE0418",
       odd_numbers,
       even_numbers,
       alphabets,
